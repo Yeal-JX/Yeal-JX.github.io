@@ -75,6 +75,87 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Day11" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/01/22/Day11/" class="article-date">
+  <time class="dt-published" datetime="2024-01-22T10:42:41.036Z" itemprop="datePublished">2024-01-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/01/22/Day11/">Day-11</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><p>1.static关键字</p>
+<p>2.多态</p>
+<p>3.抽象</p>
+<p>4.接口</p>
+<p>5.设计模式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">复习：</span><br><span class="line">this关键字:调用自己的构造方法</span><br><span class="line"></span><br><span class="line">super关键字：调用父类的构造方法</span><br><span class="line"></span><br><span class="line">实例化对象：new关键字</span><br><span class="line"></span><br><span class="line">final关键字：1.修饰类（不能继承）2.修饰方法（不能重写）3.修饰属性（不能更改）  方法重写：方法继承中，子集重写父集</span><br><span class="line"> </span><br><span class="line">子类实例化一定要实例化父类（super）</span><br><span class="line"></span><br><span class="line">Java中的继承是单继承但是具有传递性</span><br><span class="line"></span><br><span class="line">object是基类，所有类的父类</span><br></pre></td></tr></table></figure>
+
+<p>static关键字</p>
+<p>  static修饰属性称为静态属性，静态属性无序实例化，直接通过类名，属性名的方式调用</p>
+<p>static修饰方法称为静态方法，静态方法中只能使用静态属性，静态方法也只能调用静态方法</p>
+<p>static修饰的属性和方法称为类属性和类方法，实例化出的所有对象中的值，都是一致的。</p>
+<p>static修饰代码块，称为静态代码块，会在类加载时首先执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;静态代码块&quot;</span>)；</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> demo1&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;构造属性&quot;</span>)；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法重载"><a href="#方法重载" class="headerlink" title="方法重载"></a>方法重载</h3><p>发生在同一个类中，方法名相同，方法的阐述个数和参数类型各不相同</p>
+<p>可以发生在普通方法、构造方法和静态方法 </p>
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>同个对象在不同场景的多种形态</p>
+<p>Java中多态的前提：必须继承，有子类与父类的关系</p>
+<p>多态的表现：父类声明指向子类，调用重写的方法，子类执行，称为向上转型，反之为向下转型（强制类型转换来实现）</p>
+<p> 多态执行中，属性调用父级，重写的方法调用子级，为重写方法调用父级</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">//向上转换(频率高)</span></span><br><span class="line">    <span class="type">Fu</span> <span class="variable">fu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Zi</span>();</span><br><span class="line">    System.out.println(fu.name);</span><br><span class="line">    fu.show();</span><br><span class="line">    fu.run();</span><br><span class="line">    <span class="comment">//向下转换</span></span><br><span class="line">    <span class="type">Zi</span> <span class="variable">zi</span> <span class="operator">=</span> (Zi)fu;</span><br><span class="line">    System.out.println(zi.name);</span><br><span class="line">    zi.show();</span><br><span class="line">    zi.play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>抽象方法特点：没有方法体（没有大括号）—不能被执行，只能被重写</p>
+<p>抽象类不能被实例化，可以被抽象类或普通类继承，只能实例化普通类</p>
+<p>抽象的关键字：abstract</p>
+<p>abstract标记在类上表示这个类是抽象类</p>
+<p>abstract标记在方法上表示这个方法是抽象方法</p>
+<p>抽象方法只能存在于抽象类中，但是抽象类中不是只能存在抽象方法</p>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>接口不是类，与类平级</p>
+<p>接口使用interface关键字代替class</p>
+<p>接口中，只能存在静态常量和抽象方法</p>
+<p>接口中的变量默认是公开的静态常量，无需加static和final关键字</p>
+<p>接口中的方法不加任何修饰符就表示public修饰符</p>
+<p>在jdk1.8中，被default修饰的方法，可以使普通方法，其他都是抽象方法，并且省略abstract关键字</p>
+<p>接口不能被实例化，需要被实现（就理解为继承即可），接口可以多实现，一个类可以实现多个接口 </p>
+<p>接口可以理解为一个只有方法的抽象类</p>
+<p>抽象类是属于不属于的概念，接口是有没有的概念</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Brid</span> <span class="keyword">implements</span> <span class="title class_">Fly</span>, Eat &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Brid</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//fly方法必须实现</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">fly</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;小鸟在fei&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//show方法是被default修饰的，可以选择性实现</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><p>创建型模式，结构型模式，行为型模式</p>
+<p>在软件设计中，被反复使用的一种代码设计经验</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yeal-jx.github.io/2024/01/22/Day11/" data-id="clt2gm98k0000g0081wzofgbu" data-title="Day-11" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Week4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/01/21/Week4/" class="article-date">
@@ -604,6 +685,10 @@
       <ul>
         
           <li>
+            <a href="/2024/07/28/Week24/">2024年7月22日~2024年7月28日</a>
+          </li>
+        
+          <li>
             <a href="/2024/07/21/Week23/">2024年7月15日~7月21日</a>
           </li>
         
@@ -617,10 +702,6 @@
         
           <li>
             <a href="/2024/05/19/Week20/">2024年5月13日~5月19日</a>
-          </li>
-        
-          <li>
-            <a href="/2024/05/12/Week19/">2024年5月6日~5月12日</a>
           </li>
         
       </ul>
